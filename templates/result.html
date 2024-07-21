@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .graph-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Results</h1>
+        <div id="graphs"></div>
+        <a href="{{ url_for('index') }}">Upload Another File</a>
+    </div>
+    <script>
+        // Print the graphJSON to check the structure
+        console.log("Graph JSON Data:", {{ graphJSON | safe }});
+
+        var graphs = {{ graphJSON | safe }};
+        for (var i = 0; i < graphs.length; i++) {
+            var graphDiv = document.createElement('div');
+            graphDiv.id = 'graph-' + i;
+            graphDiv.className = 'graph-container';
+            document.getElementById('graphs').appendChild(graphDiv);
+            Plotly.newPlot(graphDiv, graphs[i].data, graphs[i].layout);
+        }
+    </script>
+</body>
+</html>
