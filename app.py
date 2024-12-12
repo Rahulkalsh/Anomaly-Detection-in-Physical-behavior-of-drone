@@ -10,6 +10,7 @@ import plotly.graph_objs as go
 import plotly
 import json
 import logging
+import tensorflow as tf
 
 tf.get_logger().setLevel(logging.ERROR)
 app = Flask(__name__, template_folder='templates', static_folder='static')
