@@ -19,7 +19,7 @@ tf.get_logger().setLevel(logging.ERROR)
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # Fetch environment variables
-upload_folder = os.getenv('UPLOAD_FOLDER', 'uploads')  # Default to 'uploads' if not set
+upload_folder = os.getenv('UPLOAD_FOLDER', '/tmp/uploads')  # Default to /tmp/uploads for Render compatibility
 cuda_devices = os.getenv('CUDA_VISIBLE_DEVICES', '-1')  # Default to disable GPU
 os.environ["CUDA_VISIBLE_DEVICES"] = cuda_devices
 
@@ -126,8 +126,3 @@ def classify_anomalies(predicted_data_df):
 def create_dataset(data, time_steps=1, step=1):
     Xs = [data[i: i + time_steps] for i in range(0, len(data) - time_steps + 1, step)]
     return np.array(Xs)
-
-if __name__ == '__main__':
-    print(f"UPLOAD_FOLDER: {app.config['UPLOAD_FOLDER']}")
-    print(f"CUDA Devices: {os.environ['CUDA_VISIBLE_DEVICES']}")
-    app.run()
