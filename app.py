@@ -12,14 +12,22 @@ import json
 import logging
 import tensorflow as tf
 
+# Suppress TensorFlow warnings
 tf.get_logger().setLevel(logging.ERROR)
+
+# Initialize Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
-app.config['UPLOAD_FOLDER'] = 'uploads'
+# Fetch environment variables
+upload_folder = os.getenv('UPLOAD_FOLDER', 'uploads')  # Default to 'uploads' if not set
+cuda_devices = os.getenv('CUDA_VISIBLE_DEVICES', '-1')  # Default to disable GPU
+os.environ["CUDA_VISIBLE_DEVICES"] = cuda_devices
+
+# Flask configurations
+app.config['UPLOAD_FOLDER'] = upload_folder
 app.config['ALLOWED_EXTENSIONS'] = {'ulg'}
 
 # Ensure necessary directories exist
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs('static/graphs', exist_ok=True)
 os.makedirs('static/css', exist_ok=True)
@@ -118,3 +126,8 @@ def classify_anomalies(predicted_data_df):
 def create_dataset(data, time_steps=1, step=1):
     Xs = [data[i: i + time_steps] for i in range(0, len(data) - time_steps + 1, step)]
     return np.array(Xs)
+
+if __name__ == '__main__':
+    print(f"UPLOAD_FOLDER: {app.config['UPLOAD_FOLDER']}")
+    print(f"CUDA Devices: {os.environ['CUDA_VISIBLE_DEVICES']}")
+    app.run()
