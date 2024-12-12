@@ -9,7 +9,9 @@ from sklearn.preprocessing import RobustScaler
 import plotly.graph_objs as go
 import plotly
 import json
+import logging
 
+tf.get_logger().setLevel(logging.ERROR)
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ulg'}
