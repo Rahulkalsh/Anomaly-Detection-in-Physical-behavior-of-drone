@@ -15,6 +15,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ulg'}
 
 # Ensure necessary directories exist
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs('static/graphs', exist_ok=True)
 os.makedirs('static/css', exist_ok=True)
