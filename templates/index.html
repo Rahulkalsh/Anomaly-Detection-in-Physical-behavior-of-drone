@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload ULog File</title>
+    <title>Save Your Drone Before Crash</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #5f2c82, #49a09d);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,14 +16,35 @@
         }
         .container {
             background-color: #fff;
-            padding: 20px 40px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            padding: 30px 50px;
+            border-radius: 12px;
             text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.05);
         }
         h1 {
+            font-size: 30px;
             color: #333;
             margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        p {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .highlight {
+            color: #007bff;
+            font-weight: bold;
         }
         form {
             display: flex;
@@ -32,29 +53,95 @@
         }
         input[type="file"] {
             margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border 0.3s ease;
+        }
+        input[type="file"]:hover {
+            border-color: #007bff;
         }
         input[type="submit"] {
             background-color: #007bff;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
         }
         input[type="submit"]:hover {
             background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+        input[type="submit"]:active {
+            background-color: #004080;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+                max-width: 90%;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            p {
+                font-size: 14px;
+            }
+            input[type="file"] {
+                max-width: 100%;
+            }
+            input[type="submit"] {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+            p {
+                font-size: 13px;
+            }
+            input[type="file"] {
+                padding: 10px;
+            }
+            input[type="submit"] {
+                font-size: 14px;
+                padding: 8px 18px;
+            }
+        }
+
+        /* iPad / Tablet Specific */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .container {
+                max-width: 75%;
+            }
+            h1 {
+                font-size: 32px;
+            }
+            p {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Upload ULog File</h1>
+        <h1>Save Your Drone Before Crash</h1>
+        <p>
+            Protect your drone and its mission with our advanced anomaly detection system. By analyzing <span class="highlight">PX4 .ulg files</span>, we first apply a <span class="highlight">regression model</span> to predict the drone's future behavior, followed by a <span class="highlight">classification model</span> to detect any potential issues or anomalies. This two-step process helps identify and prevent potential crashes, ensuring the safety and reliability of your drone's operations.
+        </p>
         <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
             <input type="file" name="file" accept=".ulg">
             <input type="submit" value="Upload">
