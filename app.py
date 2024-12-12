@@ -12,7 +12,8 @@ import json
 import logging
 
 tf.get_logger().setLevel(logging.ERROR)
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
+
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ulg'}
 
