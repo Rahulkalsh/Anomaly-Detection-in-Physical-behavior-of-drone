@@ -183,8 +183,6 @@ def create_dataset(data, time_steps=1, step=1):
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
 
 
 # from flask import Flask, request, render_template, redirect, url_for
